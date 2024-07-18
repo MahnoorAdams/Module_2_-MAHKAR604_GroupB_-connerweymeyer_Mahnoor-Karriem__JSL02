@@ -3,7 +3,6 @@ const welcomeMessage = () => {
     document.getElementById('welcomeMessage').textContent = `🤸🏾‍♀️ Welcome to Your Fitness Tracker 🥗 Today is ${today}`;
 };
 welcomeMessage();
-
 const displayWorkoutRoutine = () => {
     const workoutInput = document.querySelector('#workoutInput').value;
     const workoutList = document.querySelector('#workoutList');
@@ -14,62 +13,45 @@ const displayWorkoutRoutine = () => {
 
 document.querySelector('#submitWorkout').addEventListener('click', displayWorkoutRoutine);
 
-// ⚠️⚠️⚠️ Lesson 3: Creating and Removing Elements ⚠️⚠️⚠️
 // Function to add new fitness goals and remove completed ones
-// NOW LET'S DEBUG TO PREVENT DUPLICATE GOALS FROM BEING SUBMITTED 🚀
-
 const addNewGoal = () => {
-    const goalInput = document.querySelector('#goalInput').value;
-    const goalList = document.querySelector('#goalList');
-    
-    // ⚠️ Hint 1: Check for duplicates
-    // Use 'goalList' to get all existing goals and check if 'goalInput' matches any of them.
-    
-    // ⚠️ Hint 2: Prevent duplicates
-    // If a duplicate is found, display an alert to the user and don't add the goal to the list.
-    // If it's not a duplicate, proceed with adding it as a new goal.
-    
-    // ⚠️ Hint 3: Code structure
-    // You might want to wrap the duplicate-checking logic in an 'if' statement.
-    
-    // ⚠️ Hint 4: Event listener
-    // The event listener that removes goals when clicked is not related to this issue.
-    // Focus on preventing duplicates for now.
-    
-    const newGoal = document.createElement('li');
+    const goalInput = document.querySelector('#goalInput').value.replace(/\s+/g, '');  // Get the value of the input field and remove all whitespace
+    const goalList = document.querySelector('#goalList');  // Get the list where goals are displayed
+
+    // Check for duplicates
+    const existingGoals = Array.from(goalList.children).map(goal => goal.textContent.replace(/\s+/g, ''));  // Create an array of the text content of existing goals with all whitespace removed
+    if (existingGoals.includes(goalInput)) {  // Check if the input value (with whitespace removed) is already in the list of existing goals
+        alert('Goal already exist');  // Alert the user if a duplicate is found
+        return;
+    }
+
+    // Proceed with adding the new goal if no duplicate is found
+    const newGoal = document.createElement('li');  // Create a new list item element
     newGoal.textContent = goalInput;
-    goalList.appendChild(newGoal);
+    goalList.appendChild(newGoal);  // Append the new list item to the goal list
 };
 
 // Add event listener to the goal submit button
 document.querySelector('#submitGoal').addEventListener('click', addNewGoal);
 
-///
 let waterIntake = 0;
 const updateWaterIntake = (change) => {
     waterIntake += change;
     document.querySelector('#waterIntakeDisplay').textContent = `${waterIntake} glasses 💦`;
 };
-
 document.querySelector('#increaseWater').addEventListener('click', () => updateWaterIntake(1));
 document.querySelector('#decreaseWater').addEventListener('click', () => updateWaterIntake(-1));
-
 const updateProgressCharts = () => {
     document.querySelector('#workoutProgress').textContent = "Updated workout progress...";
     document.querySelector('#calorieIntakeProgress').textContent = "Updated calorie intake progress...";
 };
-
 updateProgressCharts();
-
 const toggleTheme = () => {
     document.body.classList.toggle('dark-theme');
 };
-
 document.querySelector('#themeToggle').addEventListener('click', toggleTheme);
-
 const submitMealPlan = (event) => {
     event.preventDefault(); 
     alert('Meal plan submitted successfully! 🍴');
 };
-
 document.querySelector('#mealPlanForm').addEventListener('submit', submitMealPlan);
