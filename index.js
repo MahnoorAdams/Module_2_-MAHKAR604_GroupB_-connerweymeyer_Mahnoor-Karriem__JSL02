@@ -3,6 +3,7 @@ const welcomeMessage = () => {
     document.getElementById('welcomeMessage').textContent = `🤸🏾‍♀️ Welcome to Your Fitness Tracker 🥗 Today is ${today}`;
 };
 welcomeMessage();
+
 const displayWorkoutRoutine = () => {
     const workoutInput = document.querySelector('#workoutInput').value;
     const workoutList = document.querySelector('#workoutList');
@@ -17,14 +18,14 @@ document.querySelector('#submitWorkout').addEventListener('click', displayWorkou
 const addNewGoal = () => {
     const goalInput = document.querySelector('#goalInput').value.replace(/\s+/g, '');  // Get the value of the input field and remove all whitespace
     const goalList = document.querySelector('#goalList');  // Get the list where goals are displayed
-
+    
     // Check for duplicates
     const existingGoals = Array.from(goalList.children).map(goal => goal.textContent.replace(/\s+/g, ''));  // Create an array of the text content of existing goals with all whitespace removed
     if (existingGoals.includes(goalInput)) {  // Check if the input value (with whitespace removed) is already in the list of existing goals
         alert('Goal already exist');  // Alert the user if a duplicate is found
         return;
     }
-
+    
     // Proceed with adding the new goal if no duplicate is found
     const newGoal = document.createElement('li');  // Create a new list item element
     newGoal.textContent = goalInput;
@@ -39,19 +40,26 @@ const updateWaterIntake = (change) => {
     waterIntake += change;
     document.querySelector('#waterIntakeDisplay').textContent = `${waterIntake} glasses 💦`;
 };
+
 document.querySelector('#increaseWater').addEventListener('click', () => updateWaterIntake(1));
 document.querySelector('#decreaseWater').addEventListener('click', () => updateWaterIntake(-1));
+
 const updateProgressCharts = () => {
     document.querySelector('#workoutProgress').textContent = "Updated workout progress...";
     document.querySelector('#calorieIntakeProgress').textContent = "Updated calorie intake progress...";
 };
+
 updateProgressCharts();
+
 const toggleTheme = () => {
     document.body.classList.toggle('dark-theme');
 };
+
 document.querySelector('#themeToggle').addEventListener('click', toggleTheme);
+
 const submitMealPlan = (event) => {
     event.preventDefault(); 
     alert('Meal plan submitted successfully! 🍴');
 };
+
 document.querySelector('#mealPlanForm').addEventListener('submit', submitMealPlan);
